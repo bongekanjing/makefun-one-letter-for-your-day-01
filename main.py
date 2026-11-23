@@ -6,14 +6,27 @@
 # every repo creation. Vivid, funny, and true to the day.
 import os
 
-LETTER = "U"
+# The day's letter, chosen once and never computed: U for "unhinged".
+LETTER_OF_THE_DAY = "U"
+
+OUTPUT_PATH = "/output/entry.txt"
+
+
+def letter_of_the_day():
+    """Return the day's single uppercase letter."""
+    text = LETTER_OF_THE_DAY.strip()
+    assert len(text) == 1 and text.isalpha() and text.isupper()
+    return text
+
+
+def write_entry(path, text):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(text)
+
 
 def main():
-    os.makedirs("/output", exist_ok=True)
-    text = LETTER.strip()
-    assert len(text) == 1 and text.isalpha() and text.isupper()
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(text)
+    write_entry(OUTPUT_PATH, letter_of_the_day())
 
 if __name__ == "__main__":
     main()
